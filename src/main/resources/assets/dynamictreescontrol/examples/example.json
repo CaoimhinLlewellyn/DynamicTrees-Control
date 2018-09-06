@@ -1,0 +1,79 @@
+{
+
+"dimensions" : {
+	"nether" : {
+		"dim" : -1,
+		"rules" : "defaultrulesname" 
+	},
+	"overworld" : {
+		"dim" : 0,
+		"rules" : "defaultrulesname" 
+	},
+	"end" : {
+		"dim" : 1,
+		"rules" : "endrules"
+	}
+},
+
+"rules": {
+
+	"defaultrulesname" : 
+		[
+			{
+				"biome" : "biomesoplenty:tropical_island",
+				"species" : {
+					"method" : "replace",
+					"random" : {
+						"palm" : 4,
+						"banana" : 1
+					}
+				},
+				"density" : {
+					"method" : "replace",
+					"scale" : [0.25, 0.75, 0.7]
+				},
+				"chance" : {
+					"method" : "replace",
+					"static" : 0.5
+				}
+			},
+			{
+				"biome" : "minecraft:plains",
+				"species" : {
+					"method" : "before",
+					"random" : {
+						"dynamictreesphc:pear" : 1,
+						"..." : 50
+					}
+				}
+			},
+			{
+				"biome" : "minecraft:jungle",
+				"species" : {
+					"method" : "replace",
+					"static" : "oak"
+				},
+				"density" : {
+					"method" : "replace",
+					"static" : 0.6
+				},
+				"chance" : {
+					"method" : "replace",
+					"static" : 0.5
+				}
+			}
+		]
+	},
+	"endrules" :
+		[
+			{
+				"biome" : "minecraft:end",
+				"species" : {
+					"method" : "replace",
+					"static" : "noneexistantmod:some_kind_of_end_tree"
+				}
+			}
+		]
+	}
+	
+}
