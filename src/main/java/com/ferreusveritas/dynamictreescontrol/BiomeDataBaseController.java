@@ -1,6 +1,8 @@
 package com.ferreusveritas.dynamictreescontrol;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import com.ferreusveritas.dynamictrees.worldgen.TreeGenerator;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -27,11 +30,37 @@ public class BiomeDataBaseController {
 	private Map<String, IBiomeDataBasePopulator> populatorMap = new HashMap<>();
 	private final String DEFAULT = "...";
 	
-	public void populate() {
-		processFromJson(new ResourceLocation(ModConstants.MODID, "control/example.json")); //TODO:  File name and location are bogus
+	private File configDirectory;
+	
+	public BiomeDataBaseController(File configDirectory) {
+		this.configDirectory = configDirectory;
 	}
 	
-	private JsonObject getJsonConfigDocument(ResourceLocation location) {
+	public void populate() {
+		processFromJsonConfigFile(new File(configDirectory.getAbsolutePath() + "dynamictreescontrol.json"));
+		
+		//processFromJsonResource(new ResourceLocation(ModConstants.MODID, "control/example.json")); //TODO:  File name and location are bogus
+	}
+	
+	private JsonObject getJsonFromConfigFile(File file) {
+		
+        if (file != null && file.exists() && file.isFile() && file.canRead()) {
+            String fileName = file.getAbsolutePath();
+
+            try {
+                JsonParser parser = new JsonParser();
+                JsonElement je = parser.parse(new FileReader(file));
+                return je.getAsJsonObject();
+            }
+            catch (Exception e) {
+                System.err.println("Can't open " + fileName + ": " + e.getMessage());
+            }
+        }
+
+        return null;
+	}
+	
+	private JsonObject getJsonObjectFromResource(ResourceLocation location) {
 		try {
 			InputStream in;
 			in = Minecraft.getMinecraft().getResourceManager().getResource(location).getInputStream();
@@ -40,19 +69,27 @@ public class BiomeDataBaseController {
 			JsonElement je = gson.fromJson(reader, JsonElement.class);
 			return je.getAsJsonObject();
 		}
-		catch (Exception e) { }
+		catch (Exception e) {
+            System.err.println("Can't open " + location.toString() + ": " + e.getMessage());
+		}
 		
 		return null;
 	}
 	
-	public void processFromJson(ResourceLocation location) {
-		readJsonConfig(location);
+	public void processFromJsonConfigFile(File file) {
+		JsonObject json = getJsonFromConfigFile(file);
+		readJsonConfig(json);
 		linkData();
 	}
 	
-	private void readJsonConfig(ResourceLocation location) {
+	public void processFromJsonResource(ResourceLocation location) {
+		JsonObject json = getJsonObjectFromResource(location);
+		readJsonConfig(json);
+		linkData();
+	}
+	
+	private void readJsonConfig(JsonObject json) {
 		
-		JsonObject json = getJsonConfigDocument(location);
 		if(json != null) {
 			for(Entry<String, JsonElement> entry : json.entrySet()) {
 				
