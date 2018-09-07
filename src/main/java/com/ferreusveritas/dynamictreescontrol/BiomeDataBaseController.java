@@ -37,7 +37,7 @@ public class BiomeDataBaseController {
 	}
 	
 	public void populate() {
-		processFromJsonConfigFile(new File(configDirectory.getAbsolutePath() + "dynamictreescontrol.json"));
+		processFromJsonConfigFile(new File(configDirectory.getAbsolutePath() + "/dynamictreescontrol.json"));
 		
 		//processFromJsonResource(new ResourceLocation(ModConstants.MODID, "control/example.json")); //TODO:  File name and location are bogus
 	}
@@ -138,6 +138,7 @@ public class BiomeDataBaseController {
 	private void readPopulators(JsonObject element) {
 		for(Entry<String, JsonElement> entry : element.entrySet()) {
 			String populatorName = entry.getKey();
+			System.out.println("Processing Populator: " + populatorName );
 			JsonElement jsonElement = entry.getValue();
 			populatorMap.put(populatorName, new JSONBiomeDataBasePopulator(jsonElement));
 		}

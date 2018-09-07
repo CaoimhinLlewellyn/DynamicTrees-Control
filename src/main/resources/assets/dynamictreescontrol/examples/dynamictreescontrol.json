@@ -2,9 +2,9 @@
 
 "dimensions" : {
 	"-1" : "defaultdatabase",
-	 "0" : "defaultdatabase",
+	 "0" : "customoverworld",
 	 "1" : "customend",
-	 "5" : "customoverworld"
+	 "5" : "defaultdatabase"
 },
 
 "databases" : {
@@ -40,8 +40,8 @@
 				"species" : {
 					"method" : "before",
 					"random" : {
-						"dynamictreesphc:pear" : 1,
-						"..." : 50
+						"dynamictreesphc:pear" : 4,
+						"..." : 2
 					}
 				}
 			},
@@ -60,8 +60,7 @@
 					"static" : 0.5
 				}
 			}
-		]
-	},
+		],
 	"endpop" :
 		[
 			{
