@@ -1,41 +1,62 @@
 {
+
 "dimensions" : {
-	"-1" : [ "..." ],
-	 "0" : [ "customoverworld", "..." ],
-	 "1" : [ "endrules" ]
+	"-1" : "defaultdatabase",
+	 "0" : "defaultdatabase",
+	 "1" : "customend",
+	 "5" : "customoverworld"
 },
+
+"databases" : {
+	"defaultdatabase": [ "..." ],
+	"customoverworld": [ "...", "extraoverworld" ],
+	"customend": [ "endrules" ]
+},
+
 "rules": {
-	"customoverworld" : 
+
+	"extraoverworld" : 
 		[
 			{
 				"biome" : "biomesoplenty:tropical_island",
 				"species" : {
-					"dynamictreesbop:palm" : 4,
-					"dynamictreesphc:banana" : 1
+					"method" : "replace",
+					"random" : {
+						"palm" : 4,
+						"banana" : 1
+					}
 				},
 				"density" : {
+					"method" : "replace",
 					"scale" : [0.25, 0.75, 0.7]
 				},
 				"chance" : {
+					"method" : "replace",
 					"static" : 0.5
 				}
 			},
 			{
 				"biome" : "minecraft:plains",
 				"species" : {
-					"dynamictreesphc:pear" : 1,
-					"..." : 50
+					"method" : "before",
+					"random" : {
+						"dynamictreesphc:pear" : 1,
+						"..." : 50
+					}
 				}
 			},
 			{
 				"biome" : "minecraft:jungle",
 				"species" : {
-					"oak" : 1
+					"method" : "replace",
+					"static" : "oak"
 				},
 				"density" : {
+					"method" : "replace",
 					"static" : 0.6
 				},
 				"chance" : {
+					"method" : "replace",
 					"static" : 0.5
 				}
 			}
@@ -46,9 +67,11 @@
 			{
 				"biome" : "minecraft:end",
 				"species" : {
-					"static" : "nonexistantmod:some_kind_of_end_tree"
+					"method" : "replace",
+					"static" : "noneexistantmod:some_kind_of_end_tree"
 				}
 			}
 		]
 	}
+	
 }
