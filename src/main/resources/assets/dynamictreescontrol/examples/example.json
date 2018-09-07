@@ -10,10 +10,10 @@
 "databases" : {
 	"defaultdatabase": [ "..." ],
 	"customoverworld": [ "...", "extraoverworld" ],
-	"customend": [ "endrules" ]
+	"customend": [ "endpop" ]
 },
 
-"rules": {
+"populators": {
 
 	"extraoverworld" : 
 		[
@@ -62,7 +62,7 @@
 			}
 		]
 	},
-	"endrules" :
+	"endpop" :
 		[
 			{
 				"biome" : "minecraft:end",
